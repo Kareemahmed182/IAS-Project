@@ -15,7 +15,7 @@ print("Targets:", y_train.columns.tolist())
 print("First timestamp:", df['timestamp'].iloc[0])
 
 # Step 2: Train and evaluate LSTM
-model_lstm, lstm_metrics = train_and_evaluate_lstm(X_train, y_train, X_test, y_test)
+model_lstm, lstm_metrics = train_and_evaluate_lstm(X_train, y_train, X_test, y_test ,timesteps=20)
 
 print("\n📊 LSTM Evaluation Metrics:")
 for k, v in lstm_metrics.items():
