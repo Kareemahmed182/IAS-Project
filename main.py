@@ -81,5 +81,3 @@ fuzzy_df['timestamp'] = pd.date_range(start='2012-03-13 11:45', periods=len(fuzz
 fuzzy_df[['timestamp', 'Pred_Temperature', 'Pred_Humidity', 'fuzzy_heater', 'fuzzy_ventilation']] \
     .to_csv("output/cleaned_fuzzy_decisions.csv", index=False)
 
-# ✅ Summary
-print(f"\n📊 Max Predicted Humidity: {rf_df['Pred_Humidity'].max():.2f}")
