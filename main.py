@@ -1,5 +1,13 @@
 import os
+import sys
+import warnings
+import logging
 import pandas as pd
+
+# ✅ Suppress TensorFlow logs
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 0 = all, 1 = info, 2 = warning, 3 = error
+warnings.filterwarnings("ignore", category=UserWarning)
+logging.getLogger('tensorflow').setLevel(logging.FATAL)
 
 from backend.utils.preprocessing import prepare_data
 from backend.models.lstm_model import train_and_evaluate_lstm
@@ -70,6 +78,7 @@ adjusted_df[['timestamp', 'Pred_Temperature', 'Pred_Humidity',
              'heater_status', 'ventilation_status',
              'comfort_score']] \
     .to_csv("output/cleaned_adjusted_predictions.csv", index=False)
+
 print(f"\n🎯 Final Comfort Score: {avg_score:.3f}")
 
 # STEP 5️⃣: Fuzzy logic control
@@ -80,4 +89,3 @@ fuzzy_df = pd.read_csv("output/fuzzy_decisions.csv")
 fuzzy_df['timestamp'] = pd.date_range(start='2012-03-13 11:45', periods=len(fuzzy_df), freq='15min')
 fuzzy_df[['timestamp', 'Pred_Temperature', 'Pred_Humidity', 'fuzzy_heater', 'fuzzy_ventilation']] \
     .to_csv("output/cleaned_fuzzy_decisions.csv", index=False)
-

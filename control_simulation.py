@@ -37,8 +37,6 @@ def apply_controls(df: pd.DataFrame, output_path: str,
         if date not in daily_heater_uses:
             daily_heater_uses[date] = 0
 
-        print(f"[{timestamp}] Humidity={hum:.2f}, Temp={temp:.2f}, ΔVent={i - last_vent_index}")
-
         # VENTILATION LOGIC (blended, smarter)
         if hum >= humidity_threshold and (i - last_vent_index) >= ventilation_cooldown and out_hum < 65:
             for j in range(i, min(i + ventilation_duration, len(df))):
